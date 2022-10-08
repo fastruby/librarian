@@ -1,0 +1,1 @@
+DotenvValidator.check!
