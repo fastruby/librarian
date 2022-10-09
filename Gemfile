@@ -1,10 +1,12 @@
 source "https://rubygems.org"
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+git_source(:github) { |repo| "git@github.com:#{repo}.git" }
 
 ruby "3.1.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
+gem "sitemap-parser", github: "etagwerker/sitemap-parser",
+                      branch: "fixes/recurse-to-level-n"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
