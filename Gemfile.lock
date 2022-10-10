@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/fastruby/sitemap-parser.git
+  revision: 5c7a74c0e4d69f63d277f6e1c8163ffa3566ca07
+  branch: fixes/recurse-to-level-n
+  specs:
+    sitemap-parser (0.5.6)
+      nokogiri (~> 1.6)
+      typhoeus (>= 0.6, < 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -86,6 +95,7 @@ GEM
     coderay (1.1.3)
     colorize (0.8.1)
     concurrent-ruby (1.1.10)
+    connection_pool (2.3.0)
     crass (1.0.6)
     cssbundling-rails (1.1.1)
       railties (>= 6.0.0)
@@ -94,6 +104,8 @@ GEM
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
     docile (1.4.0)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -101,6 +113,8 @@ GEM
     dotenv_validator (1.2.0)
       fast_blank (~> 1.0.0)
     erubi (1.11.0)
+    ethon (0.15.0)
+      ffi (>= 1.15.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -125,6 +139,8 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    http-cookie (1.0.5)
+      domain_name (~> 0.5)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     iniparse (1.5.0)
@@ -146,11 +162,28 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (1.0.2)
     matrix (0.4.2)
+    mechanize (2.8.5)
+      addressable (~> 2.8)
+      domain_name (~> 0.5, >= 0.5.20190701)
+      http-cookie (~> 1.0, >= 1.0.3)
+      mime-types (~> 3.0)
+      net-http-digest_auth (~> 1.4, >= 1.4.1)
+      net-http-persistent (>= 2.5.2, < 5.0.dev)
+      nokogiri (~> 1.11, >= 1.11.2)
+      rubyntlm (~> 0.6, >= 0.6.3)
+      webrick (~> 1.7)
+      webrobots (~> 0.1.2)
     method_source (1.0.0)
+    mime-types (3.4.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2022.0105)
     mini_mime (1.1.2)
     minitest (5.16.3)
     msgpack (1.6.0)
     nenv (0.3.0)
+    net-http-digest_auth (1.4.1)
+    net-http-persistent (4.0.1)
+      connection_pool (~> 2.2)
     net-imap (0.3.1)
       net-protocol
     net-pop (0.1.2)
@@ -163,6 +196,8 @@ GEM
       colorize (>= 0.8.1)
     nio4r (2.5.8)
     nokogiri (1.13.8-aarch64-linux)
+      racc (~> 1.4)
+    nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
@@ -273,6 +308,7 @@ GEM
     rubocop-rspec (2.13.2)
       rubocop (~> 1.33)
     ruby-progressbar (1.11.0)
+    rubyntlm (0.6.3)
     rubyzip (2.3.2)
     selenium-webdriver (4.5.0)
       childprocess (>= 0.5, < 5.0)
@@ -291,14 +327,23 @@ GEM
       rubocop-performance (= 1.14.3)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
+    tailwindcss-rails (2.0.14-aarch64-linux)
+      railties (>= 6.0.0)
+    tailwindcss-rails (2.0.14-x86_64-linux)
+      railties (>= 6.0.0)
     thor (1.2.1)
     timeout (0.3.0)
     turbo-rails (1.3.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
+    typhoeus (1.4.0)
+      ethon (>= 0.9.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.8.2)
     unicode-display_width (2.3.0)
     web-console (4.2.0)
       actionview (>= 6.0.0)
@@ -309,6 +354,8 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (~> 4.0)
+    webrick (1.7.0)
+    webrobots (0.1.2)
     websocket (1.2.9)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
@@ -319,6 +366,7 @@ GEM
 
 PLATFORMS
   aarch64-linux
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap
@@ -330,6 +378,7 @@ DEPENDENCIES
   factory_bot_rails
   guard-rspec
   jsbundling-rails
+  mechanize
   next_rails
   overcommit (= 0.57.0)
   pagy
@@ -343,8 +392,10 @@ DEPENDENCIES
   rubocop-rspec
   selenium-webdriver
   simplecov
+  sitemap-parser!
   standard
   stimulus-rails
+  tailwindcss-rails
   turbo-rails
   tzinfo-data
   web-console

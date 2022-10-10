@@ -1,7 +1,7 @@
-<div id="<%= dom_id link %>">
+<div id="<%= dom_id link %>" class="<%= cycle "bg-slate-300", "bg-red-100" %>">
   <p>
     <strong>Url:</strong>
-    <%= link.url %>
+    <%= link_to link.url, link.url, target: "_blank" %>
   </p>
 
   <p>
