@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <main class="container mx-auto">
+    <main class='container mx-auto <%= "#{controller_name}-controller #{controller_name}-#{action_name}" %>'>
       <%= yield %>
     </main>
   </body>

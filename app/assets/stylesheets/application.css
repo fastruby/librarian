@@ -1,9 +1,22 @@
 /* Application styles */
 
+a, button {
+  text-decoration: underline;
+  color: blue;
+}
+
 main.container {
   margin: 2em;
 }
 
 main h1 {
+  margin-bottom: 1em;
+}
+
+main.links-controller ul li {
+  margin-bottom: 1em;
+}
+
+main.links-controller .link-container {
   margin-bottom: 1em;
 }

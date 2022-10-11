@@ -2,7 +2,7 @@
   <%= link.title %>
 </h1>
 
-<div id="<%= dom_id link %>" class="<%= cycle "bg-slate-300", "bg-red-100" %>">
+<div id="<%= dom_id link %>" class="link-container <%= cycle "bg-slate-300", "bg-red-100" %>">
   <div class="mb-6">
     <strong>Url:</strong>
     <%= link_to link.url, link.url, target: "_blank" %>

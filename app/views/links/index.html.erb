@@ -4,10 +4,13 @@
 
 <div id="links">
   <% @links.each do |link| %>
-    <%= render link %>
-    <p>
-      <%= link_to "Show this link", link %>
-    </p>
+
+    <div class="mb-6">
+      <%= render link %>
+      <p>
+        <%= link_to "Show this link", link %>
+      </p>
+    </div>
   <% end %>
 </div>
 

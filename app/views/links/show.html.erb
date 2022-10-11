@@ -5,9 +5,9 @@
 <% if @link.shares.any? %>
   <h2 class="text-2xl">Shares</h2>
 
-  <ul class="">
+  <ul class="link-shares">
   <% @link.shares.find_each do |share| %>
-    <li><%= render share %></li>
+    <li class="<%= cycle("bg-slate-300", "bg-red-100") %>"><%= render share %></li>
   <% end %>
   </ul>
 <% end %>
