@@ -16,34 +16,16 @@ class SharesController < ApplicationController
     @share = @link.shares.build
   end
 
-  # GET /shares/1/edit
-  def edit
-  end
-
   # POST /shares
   def create
     @share = @link.shares.build(share_params)
 
     if @share.save
+      @share.update shortened_url: "https://#{@share.shorten}"
       redirect_to @link, notice: "Share was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  # PATCH/PUT /shares/1
-  def update
-    if @share.update(share_params)
-      redirect_to @share, notice: "Share was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /shares/1
-  def destroy
-    @share.destroy
-    redirect_to shares_url, notice: "Share was successfully destroyed."
   end
 
   private
