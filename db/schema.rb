@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_09_014129) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_11_023109) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,4 +22,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_09_014129) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "shares", force: :cascade do |t|
+    t.bigint "link_id", null: false
+    t.string "shortened_url"
+    t.string "utm_source"
+    t.string "utm_medium"
+    t.string "utm_campaign"
+    t.string "utm_term"
+    t.string "utm_content"
+    t.string "utm_id"
+    t.string "shared_link_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["link_id"], name: "index_shares_on_link_id"
+  end
+
+  add_foreign_key "shares", "links"
 end
