@@ -2,9 +2,19 @@
 
 <%= render @link %>
 
+<% if @link.shares.any? %>
+  <h2 class="text-2xl">Shares</h2>
+
+  <ul class="">
+  <% @link.shares.find_each do |share| %>
+    <li><%= render share %></li>
+  <% end %>
+  </ul>
+<% end %>
+
 <div>
   <%= link_to "Edit this link", edit_link_path(@link) %> |
-  <%= link_to "Back to links", links_path %>
-
+  <%= link_to "Back to links", links_path %> | 
+  <%= link_to "Share", new_link_share_path(@link) %> | 
   <%= button_to "Destroy this link", @link, method: :delete %>
 </div>

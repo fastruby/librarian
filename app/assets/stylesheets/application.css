@@ -1,1 +1,9 @@
 /* Application styles */
+
+main.container {
+  margin: 2em;
+}
+
+main h1 {
+  margin-bottom: 1em;
+}

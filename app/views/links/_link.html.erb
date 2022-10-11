@@ -1,17 +1,17 @@
+<h1 class="text-4xl font-bold">
+  <%= link.title %>
+</h1>
+
 <div id="<%= dom_id link %>" class="<%= cycle "bg-slate-300", "bg-red-100" %>">
-  <p>
+  <div class="mb-6">
     <strong>Url:</strong>
     <%= link_to link.url, link.url, target: "_blank" %>
-  </p>
+  </div>
 
-  <p>
-    <strong>Title:</strong>
-    <%= link.title %>
-  </p>
 
-  <p>
+  <div class="mb-6">
     <strong>Description:</strong>
     <%= link.description %>
-  </p>
+  </div>
 
 </div>

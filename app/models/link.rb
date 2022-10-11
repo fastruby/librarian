@@ -1,4 +1,7 @@
 class Link < ApplicationRecord
+  validates :url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https])
+
+  has_many :shares
 
   class << self
     def find_urls(sitemap)
