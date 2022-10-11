@@ -5,6 +5,14 @@ class Link < ApplicationRecord
       sitemap.to_a.select {|x| x.end_with? ".html" }.reject {|x| x.include?("page") || x.include?("/tags/") || x.include?("author") }
     end
 
+    def find_description(page)
+      element = page.at('meta[name="description"]') || 
+                page.at('meta[itemprop="description"]') || 
+                page.at('meta[name="twitter:description"]')
+
+      element.nil? ? "" : element[:content]
+    end
+
     def sync!(sitemap)
       find_urls(sitemap).each do |str|
         puts "Url: #{str}"
@@ -15,11 +23,9 @@ class Link < ApplicationRecord
         
         page = mechanize.get(str)
 
-        description = page.at('meta[name="description"]')[:content]
+        description = find_description(page)
         
         link.update! title: page.title, description: description
-
-        puts page.title
       end
     end
   end
