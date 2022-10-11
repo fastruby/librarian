@@ -7,9 +7,11 @@ ruby "3.1.1"
 gem "rails", "~> 7.0.4"
 
 # Application Dependencies
+gem "dotenv-rails"
 gem "mechanize"
 gem "sitemap-parser", github: "fastruby/sitemap-parser",
                       branch: "fixes/recurse-to-level-n"
+gem "ombu_labs-shortener"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
