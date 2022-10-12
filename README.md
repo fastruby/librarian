@@ -1,24 +1,28 @@
-# README
+# OmbuLabs Librarian
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an app to keep track of all of our resources:
 
-Things you may want to cover:
+- OmbuLabs Articles
+- FastRub.io Articles
 
-* Ruby version
+In the future it will be able to keep track of: 
 
-* System dependencies
+- eBooks
+- Online Courses
 
-* Configuration
+## Setup 
 
-* Database creation
+Clone the repository and follow these steps: 
 
-* Database initialization
+```
+./bin/setup
+./bin/dev
+```
 
-* How to run the test suite
+## Tests
 
-* Services (job queues, cache servers, search engines, etc.)
+You can run the tests using RSpec:
 
-* Deployment instructions
-
-* ...
+```
+bundle exec rspec spec/
+```
