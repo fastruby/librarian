@@ -12,9 +12,7 @@
   </ul>
 <% end %>
 
-<div>
-  <%= link_to "Edit this link", edit_link_path(@link) %> |
-  <%= link_to "Back to links", links_path %> | 
-  <%= link_to "Share", new_link_share_path(@link) %> | 
-  <%= button_to "Destroy this link", @link, method: :delete %>
+<div class="mb-6">
+  <%= link_to "Back to links", links_path %> |
+  <%= link_to "Share", new_link_share_path(@link) %>
 </div>

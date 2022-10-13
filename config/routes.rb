@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: "links#index"
-  resources :links do
+  resources :links, only: [:index, :show] do
     resources :shares
   end
 end
