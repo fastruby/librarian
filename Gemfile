@@ -6,8 +6,10 @@ ruby "3.1.1"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 
+gem "ombu_labs-auth"
+gem 'omniauth-github', '~> 2.0.0'
+
 # Application Dependencies
-gem "dotenv-rails"
 gem "mechanize"
 gem "sitemap-parser", github: "fastruby/sitemap-parser",
                       branch: "fixes/recurse-to-level-n"
