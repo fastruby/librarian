@@ -7,6 +7,15 @@ GIT
       nokogiri (~> 1.6)
       typhoeus (>= 0.6, < 2.0)
 
+PATH
+  remote: ../ombu_labs-auth
+  specs:
+    ombu_labs-auth (0.1.0)
+      devise (~> 4.8.1)
+      omniauth (~> 2.1.0)
+      omniauth-github (~> 2.0.0)
+      rails (>= 6.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -228,11 +237,6 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
-    ombu_labs-auth (0.1.0)
-      devise (~> 4.8.1)
-      omniauth (~> 2.1.0)
-      omniauth-github (~> 2.0.0)
-      rails (>= 6.0)
     ombu_labs-shortener (0.2.0)
       rebrandly
     omniauth (2.1.0)
@@ -439,7 +443,7 @@ DEPENDENCIES
   jsbundling-rails
   mechanize
   next_rails
-  ombu_labs-auth
+  ombu_labs-auth!
   ombu_labs-shortener
   omniauth-github (~> 2.0.0)
   overcommit (= 0.57.0)
