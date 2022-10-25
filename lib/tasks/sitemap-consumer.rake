@@ -3,7 +3,7 @@ task read: :environment do
   puts "Reading sitemaps..."
 
   # http://fastruby.io.s3.amazonaws.com/sitemap.xml
-  ["ombulabs.com", "fastruby.io"].each do |bucket|
+  ["ombulabs.com", "fastruby.io", "upgradejs.com"].each do |bucket|
     sitemap = SitemapParser.new "http://#{bucket}.s3.amazonaws.com/sitemap.xml", recurse: true
     Link.sync!(sitemap)
   end
