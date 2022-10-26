@@ -8,10 +8,13 @@
     <%= link_to link.url, link.url, target: "_blank" %>
   </div>
 
-
   <div class="mb-6">
-    <strong>Description:</strong>
+    <strong>Short Description:</strong>
     <%= link.description %>
   </div>
 
+  <div class="mb-6">
+    <strong>Long Description:</strong>
+    <%= link.open_graph_description %>
+  </div>
 </div>

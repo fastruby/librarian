@@ -9,9 +9,16 @@ class Link < ApplicationRecord
     end
 
     def find_description(page)
-      element = page.at('meta[name="description"]') || 
-                page.at('meta[itemprop="description"]') || 
+      element = page.at('meta[name="description"]') ||
+                page.at('meta[itemprop="description"]') ||
                 page.at('meta[name="twitter:description"]')
+
+      element.nil? ? "" : element[:content]
+    end
+
+    def find_open_graph_description(page)
+      element = page.at('meta[property="og:description"]') ||
+                page.at('meta[property="article:section"]')
 
       element.nil? ? "" : element[:content]
     end
@@ -23,14 +30,19 @@ class Link < ApplicationRecord
         link = Link.find_or_create_by(url: str)
 
         mechanize = Mechanize.new
-        
+
         page = mechanize.get(str)
 
         description = find_description(page)
-        
-        link.update! title: page.title, description: description
+        open_graph_description = find_open_graph_description(page)
+
+        link.update! title: page.title,
+                    description: description,
+                    open_graph_description: open_graph_description
+
+        break
       end
     end
   end
-  
+
 end

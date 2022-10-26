@@ -3,7 +3,12 @@ class LinksController < ApplicationController
 
   # GET /links
   def index
-    @links = Link.all
+    scope = if params[:domain].present?
+      Link.where("url ILIKE ?", "%#{params[:domain]}%")
+    else
+      Link
+    end
+    @links = scope.all
   end
 
   # GET /links/1
