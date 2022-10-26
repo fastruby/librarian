@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_11_023109) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_26_141851) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "links", force: :cascade do |t|
@@ -20,6 +21,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_11_023109) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "open_graph_description", default: ""
+    t.index ["url"], name: "index_links_on_url", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "shares", force: :cascade do |t|

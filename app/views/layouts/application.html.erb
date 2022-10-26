@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font" %>
-
-    <%= stylesheet_link_tag "application" %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "application" %>
   </head>
 
   <body>
     <main class='container mx-auto <%= "#{controller_name}-controller #{controller_name}-#{action_name}" %>'>
+      <%= render "shared/navigation_bar" %>
       <%= yield %>
     </main>
   </body>

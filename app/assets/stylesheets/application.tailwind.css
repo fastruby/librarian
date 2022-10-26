@@ -2,12 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-
 @layer components {
   .btn-primary {
     @apply py-2 px-4 bg-blue-200;
   }
-}
 
-*/
+  ul.navigation li.active {
+    background-color: black;
+    color: white;
+  }
+
+  ul.navigation {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+}
