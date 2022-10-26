@@ -1,5 +1,5 @@
 <% if share.shortened_url.present? %>
-  <%= link_to share.shortened_url, share.shortened_url %>
-<% else %> 
+  <%= link_to share.shortened_url, share.shortened_url %> (Source: <%= share.utm_source %>)
+<% else %>
   <%= link_to share.calculated_url, share.calculated_url %>
 <% end %>
