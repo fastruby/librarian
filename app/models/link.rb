@@ -39,8 +39,6 @@ class Link < ApplicationRecord
         link.update! title: page.title,
                     description: description,
                     open_graph_description: open_graph_description
-
-        break
       end
     end
   end
