@@ -16,4 +16,9 @@
     margin-top: 1em;
     margin-bottom: 1em;
   }
+
+  #links .link-container {
+    margin-top: 1em;
+    padding: 1em;
+  }
 }
