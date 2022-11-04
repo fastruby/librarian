@@ -23,6 +23,12 @@ class Link < ApplicationRecord
       element.nil? ? "" : element[:content]
     end
 
+    def find_published_time(page)
+      element = page.at('meta[property="article:published_time"]')
+
+      element.nil? ? "" : element[:content]
+    end
+
     def sync!(sitemap)
       find_urls(sitemap).each do |str|
         puts "Url: #{str}"
@@ -35,10 +41,19 @@ class Link < ApplicationRecord
 
         description = find_description(page)
         open_graph_description = find_open_graph_description(page)
+        published_time_string = find_published_time(page)
+        published_time = if published_time_string.present?
+          Time.parse(published_time_string)
+        end
+
 
         link.update! title: page.title,
-                    description: description,
-                    open_graph_description: open_graph_description
+                     description: description,
+                     open_graph_description: open_graph_description
+
+        if published_time.present?
+          link.update! published_at: published_time
+        end
       end
     end
   end
