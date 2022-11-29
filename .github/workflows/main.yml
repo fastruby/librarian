@@ -12,15 +12,17 @@ on:
 jobs:
   test-rails-current:
     runs-on: ubuntu-latest
-
+    env: 
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: rob-ott
     services:
       postgres:
-        image: postgres:10.9
-        ports:
-          - 5432:5432
+        image: postgres:11.6-alpine
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
         # needed because the postgres container does not provide a healthcheck
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
@@ -31,33 +33,19 @@ jobs:
         with:
           ruby-version: "3.1.1"
 
-      - name: Install PostgreSQL 10 client
+      - name: Install PostgreSQL 11 client
         run: |
           sudo apt-get -yqq install libpq-dev
       - name: Build App
         env:
-          PGHOST: localhost
-          PGUSER: postgres
           RAILS_ENV: test
         run: |
           gem install bundler:2.2.29
           bundle install --jobs 4 --retry 3
           yarn install
-          cp config/database.yml.github config/database.yml
           rake db:setup
       - name: Run tests
         run: |
           bundle exec rspec spec
-
-    services:
-      postgres:
-        image: postgres:10.9
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
   
