@@ -3,7 +3,8 @@
 This is an app to keep track of all of our resources:
 
 - OmbuLabs Articles
-- FastRub.io Articles
+- FastRuby.io Articles
+- UpgradeJS.com Articles
 
 In the future it will be able to keep track of: 
 
