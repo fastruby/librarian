@@ -13,6 +13,7 @@ class LinksController < ApplicationController
 
   # GET /links/1
   def show
+    @grouped_social_media_snippets = @link.social_media_snippets.group_by(&:social_media_type)
   end
 
   private

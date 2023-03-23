@@ -2,6 +2,9 @@ class Link < ApplicationRecord
   validates :url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https])
 
   has_many :shares
+  has_many :social_media_snippets
+
+  after_create :create_chat_gpt_snippets
 
   class << self
     def find_urls(sitemap)
@@ -58,4 +61,35 @@ class Link < ApplicationRecord
     end
   end
 
+  private
+
+  def create_chat_gpt_snippets
+    ["Twitter", "LinkedIn"].each do |network|
+      fetch_social_media_snippets(social_media_site: network).each do |content|
+        self.social_media_snippets.create(content: content, social_media_type: network)
+      end
+      sleep(2)
+    end
+  end
+
+  def fetch_social_media_snippets(social_media_site: "Twitter")
+    client = OpenAI::Client.new(access_token: ENV["OPEN_AI_ACCESS_TOKEN"])
+
+    response = client.chat(
+      parameters: {
+          model: "gpt-3.5-turbo",
+          messages: [{ role: "user", content: gpt_prompt(social_media_site: social_media_site) }],
+          temperature: 0.7,
+      }
+    )
+    text = response.dig("choices", 0, "message", "content")
+    puts text
+
+    text.split("\n").reject(&:blank?)
+  end
+
+  def gpt_prompt(social_media_site: "Twitter")
+    "Please generate three social media snippets for #{social_media_site} using this article "\
+    "and make sure to include at least one relevant hashtag: #{self.url}"
+  end
 end
