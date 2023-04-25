@@ -1,6 +1,19 @@
 class Share < ApplicationRecord
   belongs_to :link
 
+  UTM_SOURCES = %w[
+    LinkedIn
+    Slack
+    Twitter
+  ]
+
+  UTM_MEDIUMS = %w[
+    community
+    link
+    post
+    sponsored
+  ]
+
   validates :utm_source, :utm_campaign, :utm_medium, :utm_term, presence: true
 
   def calculated_url

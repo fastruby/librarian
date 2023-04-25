@@ -14,12 +14,12 @@
 
   <div class="my-5">
     <%= form.label :utm_source %>
-    <%= form.text_field :utm_source, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :utm_source, utm_source_options, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
     <%= form.label :utm_medium %>
-    <%= form.text_field :utm_medium, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :utm_medium, utm_medium_options, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
