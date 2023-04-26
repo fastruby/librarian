@@ -1,6 +1,6 @@
 ARG DISTRO_NAME=bullseye
 
-FROM ruby:3.1.1-slim-$DISTRO_NAME
+FROM ruby:3.2.1-slim-$DISTRO_NAME
 
 ARG DISTRO_NAME
 
