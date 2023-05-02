@@ -20,7 +20,7 @@
 
   <ul class="link-shares">
   <% @link.shares.find_each do |share| %>
-    <li class="<%= cycle("bg-slate-300", "bg-red-100") %>"><%= render share %></li>
+    <li class="<%= cycle("bg-slate-300", "bg-red-100") %>"><%= render share %><%= link_to "Clone", link_clone_path(@link, share) %></li>
   <% end %>
   </ul>
 <% end %>

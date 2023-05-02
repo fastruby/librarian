@@ -1,6 +1,6 @@
 class SharesController < ApplicationController
   before_action :find_link
-  before_action :set_share, only: %i[ show edit update destroy ]
+  before_action :set_share, only: %i[ show edit clone update destroy ]
 
   # GET /shares
   def index
@@ -14,6 +14,12 @@ class SharesController < ApplicationController
   # GET /shares/new
   def new
     @share = @link.shares.build
+  end
+
+  # GET /shares/1/clone
+  def clone
+    @cloned_share = @share.dup
+    render :new, locals: { share: @cloned_share }
   end
 
   # POST /shares
