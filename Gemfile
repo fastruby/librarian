@@ -76,6 +76,7 @@ group :test do
 end
 
 group :development, :test do
+  gem "rails-controller-testing"
   gem "factory_bot_rails"
   gem "simplecov", require: false
   gem "standard"
