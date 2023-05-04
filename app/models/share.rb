@@ -2,16 +2,25 @@ class Share < ApplicationRecord
   belongs_to :link
 
   UTM_SOURCES = %w[
+    Facebook
     LinkedIn
-    Slack
     Twitter
+    Mastodon
+    ConvertKit
+    RubyWeekly
+    NodeWeekly
+    Matz
+    Bing
+    Google
+    Yahoo
+    Reddit
+    Lobsters
   ]
 
   UTM_MEDIUMS = %w[
-    community
-    link
-    post
-    sponsored
+    PPC
+    Organic
+    PaidPlacement
   ]
 
   validates :utm_source, :utm_campaign, :utm_medium, :utm_term, presence: true
