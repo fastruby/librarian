@@ -5,14 +5,30 @@ class Share < ApplicationRecord
     LinkedIn
     Slack
     Twitter
-  ]
+  ].sort!
 
   UTM_MEDIUMS = %w[
     community
     link
     post
     sponsored
-  ]
+  ].sort!
+
+  UTM_CAMPAIGN = %w[
+    Recruitment
+    upgraderuby
+    upgradejs
+    Upgradenodejs
+    Blogpromo
+  ].sort!
+
+  UTM_CONTENT = %w[
+    Photo
+    Video
+    Carousel
+    Graphic
+    Textonly
+  ].sort!
 
   validates :utm_source, :utm_campaign, :utm_medium, :utm_term, presence: true
 
