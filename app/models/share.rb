@@ -2,22 +2,31 @@ class Share < ApplicationRecord
   belongs_to :link
 
   UTM_SOURCES = %w[
+    Bing
+    ConvertKit
+    Facebook
+    Google
     LinkedIn
-    Slack
+    Lobsters
+    Mastodon
+    Matz
+    NodeWeekly
+    Reddit
+    RubyWeekly
     Twitter
+    Yahoo
   ].sort!
 
   UTM_MEDIUMS = %w[
-    community
-    link
-    post
-    sponsored
+    Organic
+    PaidPlacement
+    PPC
   ].sort!
 
   UTM_CAMPAIGN = %w[
     Recruitment
-    upgraderuby
-    upgradejs
+    Upgraderuby
+    Upgradejs
     Upgradenodejs
     Blogpromo
   ].sort!
