@@ -24,7 +24,7 @@
 
   <div class="my-5">
     <%= form.label :utm_campaign %>
-    <%= form.text_field :utm_campaign, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :utm_campaign, utm_campaign_options, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
@@ -34,7 +34,7 @@
 
   <div class="my-5">
     <%= form.label :utm_content %>
-    <%= form.text_field :utm_content, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :utm_content, utm_content_options, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">

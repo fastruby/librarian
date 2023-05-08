@@ -2,26 +2,42 @@ class Share < ApplicationRecord
   belongs_to :link
 
   UTM_SOURCES = %w[
-    Bing 
+    Bing
     ConvertKit
-    Facebook 
-    Google 
-    LinkedIn 
-    Lobsters 
-    Mastodon 
-    Matz 
-    NodeWeekly 
-    Reddit 
-    RubyWeekly 
-    Twitter 
+    Facebook
+    Google
+    LinkedIn
+    Lobsters
+    Mastodon
+    Matz
+    NodeWeekly
+    Reddit
+    RubyWeekly
+    Twitter
     Yahoo
-  ]
+  ].sort!
 
   UTM_MEDIUMS = %w[
     Organic
     PaidPlacement
     PPC
-  ]
+  ].sort!
+
+  UTM_CAMPAIGN = %w[
+    Recruitment
+    Upgraderuby
+    Upgradejs
+    Upgradenodejs
+    Blogpromo
+  ].sort!
+
+  UTM_CONTENT = %w[
+    Photo
+    Video
+    Carousel
+    Graphic
+    Textonly
+  ].sort!
 
   validates :utm_source, :utm_campaign, :utm_medium, :utm_term, presence: true
 
