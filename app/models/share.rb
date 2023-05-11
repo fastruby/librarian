@@ -37,6 +37,8 @@ class Share < ApplicationRecord
     Carousel
     Graphic
     Textonly
+    Meme
+    Gif
   ].sort!
 
   validates :utm_source, :utm_campaign, :utm_medium, :utm_term, presence: true
