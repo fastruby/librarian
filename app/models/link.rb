@@ -90,6 +90,6 @@ class Link < ApplicationRecord
 
   def gpt_prompt(social_media_site: "Twitter")
     "Please generate three social media snippets for #{social_media_site} using this article "\
-    "and make sure to include at least one relevant hashtag: #{self.url}"
+    "and make sure to include at least one relevant hashtag: #{self.url}. Don't add the url to the social media snippet."
   end
 end
