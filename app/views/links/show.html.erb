@@ -2,8 +2,20 @@
 
 <%= render @link %>
 
+<% if @link.shares.any? %>
+  <h2 class="text-4xl">Shares</h2>
+  <p class="my-3">Shortened links can be created to share in various advertising sources</p>
+
+  <ul class="link-shares mb-5">
+  <% @link.shares.find_each do |share| %>
+    <li class="<%= cycle("bg-slate-300", "bg-red-100") %>"><%= render share %><%= link_to "Clone", link_clone_path(@link, share) %></li>
+  <% end %>
+  </ul>
+<% end %>
+
 <% if @link.social_media_snippets.any? %>
   <h2 class="text-4xl">Social Media Snippets</h2>
+  <p class="my-3">These prompts are created by Open AI, and are suggestions to get you started when posting one of our blog posts, they should be paired with a link from above.</p>
 
   <% @grouped_social_media_snippets.each do |media_type, snippets| %>
     <h3 class="text-2xl"><%= media_type %></h3>
@@ -13,16 +25,6 @@
       <% end %>
     </ul>
   <% end %>
-<% end %>
-
-<% if @link.shares.any? %>
-  <h2 class="text-4xl">Shares</h2>
-
-  <ul class="link-shares">
-  <% @link.shares.find_each do |share| %>
-    <li class="<%= cycle("bg-slate-300", "bg-red-100") %>"><%= render share %><%= link_to "Clone", link_clone_path(@link, share) %></li>
-  <% end %>
-  </ul>
 <% end %>
 
 <div class="mb-6">
