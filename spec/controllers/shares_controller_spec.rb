@@ -8,8 +8,9 @@ describe SharesController, type: :controller do
   end
 
   before do
-    allow(subject).to receive(:http_basic_authenticate_or_request_with)
-      .with(anything).and_return true
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    user = FactoryBot.create(:user)
+    sign_in user
 
     allow_any_instance_of(Link).to(
       receive(:fetch_social_media_snippets).and_return(text)
