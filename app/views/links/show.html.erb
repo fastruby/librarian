@@ -2,14 +2,10 @@
 
 <%= render @link %>
 
+<h2 class="text-4xl">Shares  <%= link_to "New Share Link", new_link_share_path(@link), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm" %></h2>
+<p class="my-3">Shortened links can be created to share in various advertising sources.</p>
+
 <% if @link.shares.any? %>
-  <h2 class="text-4xl">Shares</h2>
-  <p class="my-3">Shortened links can be created to share in various advertising sources.</p>
-
-  <div class="mb-6 flex justify-end">
-    <%= link_to "New Share Link", new_link_share_path(@link) %>
-  </div>
-
   <ul class="link-shares mb-5">
   <% @link.shares.find_each do |share| %>
     <li class="<%= cycle("bg-slate-300", "bg-red-100") %>"><%= render share %><%= link_to "Clone", link_clone_path(@link, share) %></li>
