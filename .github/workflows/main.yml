@@ -12,9 +12,6 @@ on:
 jobs:
   test-rails-current:
     runs-on: ubuntu-latest
-    env: 
-      ADMIN_USERNAME: admin
-      ADMIN_PASSWORD: rob-ott
     services:
       postgres:
         image: postgres:11.6-alpine
