@@ -15,8 +15,9 @@
     <a class="inline-block border rounded py-1 px-3" href="/?domain=UpgradeJS.com">UpgradeJS Links</a>
   </li>
 
-  <li class="mr-3">
-    <%= button_to "Sign out", ombu_labs_auth.destroy_user_session_path, method: :delete, class: "button" %>
+  <li class="mr-3 ml-auto flex items-center">
+    <span><%= current_user.email %></span>
+    <%= button_to "Sign out", ombu_labs_auth.destroy_user_session_path, method: :delete, class: "inline-block border rounded py-1 px-3" %>
   </li>
 </ul>
 
