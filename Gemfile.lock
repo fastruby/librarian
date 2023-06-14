@@ -1,16 +1,4 @@
 GIT
-  remote: https://github.com/fastruby/ombu_labs-auth.git
-  revision: 15ece6e08fd451461ab7afcba611442480ab728c
-  branch: main
-  specs:
-    ombu_labs-auth (0.1.0)
-      devise (~> 4.8.1)
-      omniauth (~> 2.1.0)
-      omniauth-github (~> 2.0.0)
-      omniauth-rails_csrf_protection
-      rails (>= 6.0)
-
-GIT
   remote: https://github.com/fastruby/sitemap-parser.git
   revision: 5c7a74c0e4d69f63d277f6e1c8163ffa3566ca07
   branch: fixes/recurse-to-level-n
@@ -139,7 +127,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faraday (2.7.4)
+    faraday (2.7.6)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
@@ -177,7 +165,7 @@ GEM
     jsbundling-rails (1.0.3)
       railties (>= 6.0.0)
     json (2.6.2)
-    jwt (2.7.0)
+    jwt (2.7.1)
     kwalify (0.7.2)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -240,6 +228,12 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
+    ombu_labs-auth (1.0.0)
+      devise (~> 4.8.1)
+      omniauth (~> 2.1.0)
+      omniauth-github (~> 2.0.0)
+      omniauth-rails_csrf_protection
+      rails (>= 6.0)
     ombu_labs-shortener (0.2.0)
       rebrandly
     omniauth (2.1.1)
@@ -414,7 +408,7 @@ GEM
       unf_ext
     unf_ext (0.0.8.2)
     unicode-display_width (2.3.0)
-    version_gem (1.1.2)
+    version_gem (1.1.3)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -454,7 +448,7 @@ DEPENDENCIES
   jsbundling-rails
   mechanize
   next_rails
-  ombu_labs-auth!
+  ombu_labs-auth (= 1.0.0)
   ombu_labs-shortener
   overcommit (= 0.57.0)
   pagy
