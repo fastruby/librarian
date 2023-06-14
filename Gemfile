@@ -12,7 +12,7 @@ gem "mechanize"
 gem "sitemap-parser", github: "fastruby/sitemap-parser",
                       branch: "fixes/recurse-to-level-n"
 gem "ombu_labs-shortener"
-gem "ombu_labs-auth", "1.0.0"
+gem "ombu_labs-auth"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"

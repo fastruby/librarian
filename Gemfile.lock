@@ -448,7 +448,7 @@ DEPENDENCIES
   jsbundling-rails
   mechanize
   next_rails
-  ombu_labs-auth (= 1.0.0)
+  ombu_labs-auth
   ombu_labs-shortener
   overcommit (= 0.57.0)
   pagy
