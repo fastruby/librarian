@@ -4,4 +4,6 @@ Rails.application.routes.draw do
     resources :shares
     get '/shares/:id/clone', to: 'shares#clone', as: "clone"
   end
+
+  mount OmbuLabs::Auth::Engine, at: '/', as: 'ombu_labs_auth'
 end
