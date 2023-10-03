@@ -8,7 +8,9 @@ class Link < ApplicationRecord
 
   class << self
     def find_urls(sitemap)
-      sitemap.to_a.select {|x| x.end_with? ".html" }.reject {|x| x.include?("page") || x.include?("/tags/") || x.include?("author") }
+      sitemap.to_a.reject do |x|
+        x.match?(/#.+\z/) || x.include?('page') || x.include?('/tags/') || x.include?('author')
+      end
     end
 
     def find_description(page)

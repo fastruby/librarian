@@ -8,7 +8,7 @@ class LinksController < ApplicationController
     else
       Link
     end
-    @links = scope.where("published_at IS NOT NULL").order(published_at: "DESC")
+    @links = scope.order("published_at DESC NULLS LAST")
   end
 
   # GET /links/1
