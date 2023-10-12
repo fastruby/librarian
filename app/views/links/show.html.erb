@@ -21,7 +21,7 @@
     <h3 class="text-2xl"><%= media_type %></h3>
     <ul class="list-disc">
       <% snippets.each do |snippet| %>
-        <li class="<%= cycle("bg-white", "bg-black") %>"><%= text_area_tag(:ad, snippet.content, size: '50x10') %></li>
+        <li class="bg-white"><%= text_area_tag(:ad, snippet.content, size: '50x6') %></li>
       <% end %>
     </ul>
   <% end %>
