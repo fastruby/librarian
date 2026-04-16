@@ -21,7 +21,10 @@ Bundler.require(*Rails.groups)
 module Librarian
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.1
+
+    # No autoloaded requires from app/ or lib/, safe to disable (Rails 7.1 new default)
+    config.add_autoload_paths_to_load_path = false
 
     # Configuration for the application, engines, and railties goes here.
     #
