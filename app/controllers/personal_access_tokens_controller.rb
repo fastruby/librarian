@@ -8,8 +8,10 @@ class PersonalAccessTokensController < ApplicationController
     @new_token = current_user.personal_access_tokens.build(token_params)
 
     if @new_token.save
-      flash[:raw_token] = @new_token.token
-      redirect_to personal_access_tokens_path, notice: "Token created. Copy it now — it won't be shown again."
+      @personal_access_tokens = current_user.personal_access_tokens.order(created_at: :desc)
+      @raw_token = @new_token.token
+      flash.now[:notice] = "Token created. Copy it now — it won't be shown again."
+      render :index, status: :created
     else
       @personal_access_tokens = current_user.personal_access_tokens.order(created_at: :desc)
       render :index, status: :unprocessable_entity
