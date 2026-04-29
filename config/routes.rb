@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   end
   post 'execute_read_task', to: 'application#execute_read_task'
 
+  resources :personal_access_tokens, only: [:index, :create, :destroy]
+
   mount OmbuLabs::Auth::Engine, at: '/', as: 'ombu_labs_auth'
 end
