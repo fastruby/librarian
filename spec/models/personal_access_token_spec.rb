@@ -5,7 +5,8 @@ RSpec.describe PersonalAccessToken, type: :model do
     it 'is generated on create and exposed via attr_reader' do
       pat = FactoryBot.create(:personal_access_token)
       expect(pat.token).to be_present
-      expect(pat.token.length).to eq(64)
+      expect(pat.token).to start_with('lib_')
+      expect(pat.token.length).to eq(4 + 64)
     end
 
     it 'is stored hashed, not plaintext' do
@@ -35,6 +36,16 @@ RSpec.describe PersonalAccessToken, type: :model do
     it 'returns nil for a blank token' do
       expect(PersonalAccessToken.authenticate(nil)).to be_nil
       expect(PersonalAccessToken.authenticate('')).to be_nil
+    end
+
+    it 'returns nil for an expired token' do
+      pat = FactoryBot.create(:personal_access_token, expires_at: 1.hour.ago)
+      expect(PersonalAccessToken.authenticate(pat.token)).to be_nil
+    end
+
+    it 'returns the record when expires_at is in the future' do
+      pat = FactoryBot.create(:personal_access_token, expires_at: 1.hour.from_now)
+      expect(PersonalAccessToken.authenticate(pat.token)).to eq(pat)
     end
   end
 

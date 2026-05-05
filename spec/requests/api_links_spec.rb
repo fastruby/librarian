@@ -47,6 +47,25 @@ RSpec.describe 'JSON API for links and shares', type: :request do
       get '/links.json', headers: { 'Authorization' => 'Bearer wrong', 'Accept' => 'application/json' }
       expect(response).to have_http_status(:unauthorized)
     end
+
+    it 'returns 401 with an expired token' do
+      expired = FactoryBot.create(:personal_access_token, user: user, expires_at: 1.hour.ago)
+      headers = { 'Authorization' => "Bearer #{expired.token}", 'Accept' => 'application/json' }
+      get '/links.json', headers: headers
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'accepts a lowercase bearer scheme' do
+      headers = { 'Authorization' => "bearer #{token.token}", 'Accept' => 'application/json' }
+      get '/links.json', headers: headers
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'returns 401 for cookie-authenticated browsers without a Bearer token' do
+      sign_in user
+      get '/links.json', headers: { 'Accept' => 'application/json' }
+      expect(response).to have_http_status(:unauthorized)
+    end
   end
 
   describe 'GET /links/:id.json' do
@@ -100,6 +119,25 @@ RSpec.describe 'JSON API for links and shares', type: :request do
       expect(token.last_used_at).to be_nil
       get '/links.json', headers: auth_headers
       expect(token.reload.last_used_at).to be_present
+    end
+
+    it 'is not rewritten on every request within the debounce window' do
+      get '/links.json', headers: auth_headers
+      first_seen = token.reload.last_used_at
+      expect(first_seen).to be_present
+
+      get '/links.json', headers: auth_headers
+      expect(token.reload.last_used_at).to be_within(0.001.seconds).of(first_seen)
+    end
+
+    it 'is rewritten once the debounce window has passed' do
+      get '/links.json', headers: auth_headers
+      first_seen = token.reload.last_used_at
+
+      travel_to(2.minutes.from_now) do
+        get '/links.json', headers: auth_headers
+      end
+      expect(token.reload.last_used_at).to be > first_seen
     end
   end
 end

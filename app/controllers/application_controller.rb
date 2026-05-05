@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  skip_forgery_protection if: -> { request.format.json? }
+  skip_forgery_protection if: :bearer_token_present?
 
   before_action :authenticate_request!
 
@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     system('rake read')
     flash[:notice] = "Read task executed!"
     redirect_back_or_to root_path
+  end
+
+  def current_user
+    @current_user || super
   end
 
   private
@@ -20,19 +24,26 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_with_personal_access_token!
-    raw_token = bearer_token
-    pat = PersonalAccessToken.authenticate(raw_token)
+    pat = PersonalAccessToken.authenticate(bearer_token)
 
     if pat
-      pat.update_column(:last_used_at, Time.current)
-      sign_in pat.user, store: false
+      touch_last_used_at(pat)
+      @current_user = pat.user
     else
       render json: { error: "Unauthorized" }, status: :unauthorized
     end
   end
 
+  def touch_last_used_at(pat)
+    return if pat.last_used_at && pat.last_used_at > 1.minute.ago
+    pat.update_column(:last_used_at, Time.current)
+  end
+
   def bearer_token
-    header = request.headers["Authorization"].to_s
-    header.start_with?("Bearer ") ? header.split(" ", 2).last : nil
+    request.authorization.to_s[/\ABearer\s+(.+)\z/i, 1]&.strip
+  end
+
+  def bearer_token_present?
+    bearer_token.present?
   end
 end
