@@ -1,5 +1,13 @@
 class ApplicationController < ActionController::Base
-  skip_forgery_protection if: :bearer_token_present?
+  # (controller_name, action_name) pairs that accept Bearer-token auth.
+  # Anything not listed here goes through Devise even when JSON is requested,
+  # so a PAT cannot reach write endpoints via content negotiation.
+  API_ENDPOINTS = {
+    "links"  => %w[index show],
+    "shares" => %w[index]
+  }.freeze
+
+  skip_forgery_protection if: :api_endpoint?
 
   before_action :authenticate_request!
 
@@ -16,11 +24,16 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_request!
-    if request.format.json?
+    if api_endpoint?
       authenticate_with_personal_access_token!
     else
       authenticate_user!
     end
+  end
+
+  def api_endpoint?
+    request.format.json? &&
+      API_ENDPOINTS[controller_name]&.include?(action_name)
   end
 
   def authenticate_with_personal_access_token!
@@ -41,9 +54,5 @@ class ApplicationController < ActionController::Base
 
   def bearer_token
     request.authorization.to_s[/\ABearer\s+(.+)\z/i, 1]&.strip
-  end
-
-  def bearer_token_present?
-    bearer_token.present?
   end
 end

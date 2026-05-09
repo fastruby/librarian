@@ -88,6 +88,17 @@ RSpec.describe 'JSON API for links and shares', type: :request do
       expect(body['social_media_snippets'].size).to eq(2)
       expect(body).not_to have_key('shares')
     end
+
+    it 'returns 401 with no token' do
+      get "/links/#{fastruby_link.id}.json", headers: { 'Accept' => 'application/json' }
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'returns 401 with an invalid token' do
+      headers = { 'Authorization' => 'Bearer wrong', 'Accept' => 'application/json' }
+      get "/links/#{fastruby_link.id}.json", headers: headers
+      expect(response).to have_http_status(:unauthorized)
+    end
   end
 
   describe 'GET /links/:link_id/shares.json' do
@@ -111,6 +122,45 @@ RSpec.describe 'JSON API for links and shares', type: :request do
     it 'returns 401 without a token' do
       get "/links/#{fastruby_link.id}/shares.json", headers: { 'Accept' => 'application/json' }
       expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'returns 401 with an invalid token' do
+      headers = { 'Authorization' => 'Bearer wrong', 'Accept' => 'application/json' }
+      get "/links/#{fastruby_link.id}/shares.json", headers: headers
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  describe 'Bearer cannot reach write endpoints' do
+    it 'cannot POST a share' do
+      expect {
+        post "/links/#{fastruby_link.id}/shares.json",
+          params: { share: { utm_source: 'evil', utm_medium: 'evil', utm_campaign: 'evil' } },
+          headers: auth_headers
+      }.not_to change(Share, :count)
+    end
+
+    it 'cannot create a personal access token' do
+      auth_headers # materialize the lazy `token` let so it doesn't pollute the count check
+      expect {
+        post '/personal_access_tokens.json',
+          params: { personal_access_token: { name: 'evil' } },
+          headers: auth_headers
+      }.not_to change(PersonalAccessToken, :count)
+    end
+
+    it 'cannot destroy a personal access token' do
+      victim = FactoryBot.create(:personal_access_token, user: user, name: 'victim')
+      expect {
+        delete "/personal_access_tokens/#{victim.id}.json", headers: auth_headers
+      }.not_to change { PersonalAccessToken.exists?(victim.id) }.from(true)
+    end
+
+    it 'cannot trigger execute_read_task' do
+      # If Bearer reached the action, the controller would shell out via `system('rake read')`.
+      # Stub it so a regression here doesn't actually run rake; assert it was never invoked.
+      expect_any_instance_of(ApplicationController).not_to receive(:system)
+      post '/execute_read_task.json', headers: auth_headers
     end
   end
 
