@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_16_150928) do
+ActiveRecord::Schema[7.0].define(version: 2026_04_29_134259) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -24,6 +24,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_150928) do
     t.text "open_graph_description", default: ""
     t.datetime "published_at", precision: nil
     t.index ["url"], name: "index_links_on_url", opclass: :gin_trgm_ops, using: :gin
+  end
+
+  create_table "personal_access_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.string "token_digest", null: false
+    t.datetime "last_used_at"
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token_digest"], name: "index_personal_access_tokens_on_token_digest", unique: true
+    t.index ["user_id"], name: "index_personal_access_tokens_on_user_id"
   end
 
   create_table "shares", force: :cascade do |t|
@@ -65,6 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_150928) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "personal_access_tokens", "users"
   add_foreign_key "shares", "links"
   add_foreign_key "social_media_snippets", "links"
 end

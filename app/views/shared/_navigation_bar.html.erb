@@ -21,6 +21,7 @@
 
   <li class="mr-3 ml-auto flex items-center">
     <span><%= current_user.email %></span>
+    <%= link_to "API Tokens", personal_access_tokens_path, class: "inline-block border rounded py-1 px-3 ml-2" %>
     <%= button_to "Sign out", ombu_labs_auth.destroy_user_session_path, method: :delete, class: "inline-block border rounded py-1 px-3" %>
   </li>
 </ul>
