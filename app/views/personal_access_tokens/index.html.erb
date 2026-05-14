@@ -1,9 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
-<% if flash[:raw_token].present? %>
+<% if @raw_token.present? %>
   <div class="mb-6 p-4 border rounded bg-yellow-50">
     <p class="font-semibold mb-2">Your new token (copy it now — it won't be shown again):</p>
-    <code class="block p-2 bg-white border rounded break-all"><%= flash[:raw_token] %></code>
+    <code class="block p-2 bg-white border rounded break-all"><%= @raw_token %></code>
   </div>
 <% end %>
 
