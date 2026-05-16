@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Share do
+  before do
+    allow_any_instance_of(Link).to receive(:fetch_social_media_snippets).and_return([])
+  end
+
   describe "#valid?" do
     context "when it does not have a link or the minimum requirements" do
       it "is not valid" do
