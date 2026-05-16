@@ -31,11 +31,15 @@ class SharesController < ApplicationController
   def create
     @share = @link.shares.build(share_params)
 
-    if @share.save
-      @share.update shortened_url: "https://#{@share.shorten}"
-      redirect_to @link, notice: "Share was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @share.save
+        assign_shortened_url(@share)
+        format.html { redirect_to @link, notice: "Share was successfully created." }
+        format.json { render json: share_json(@share), status: :created }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: { errors: @share.errors.full_messages }, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -53,6 +57,12 @@ class SharesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def share_params
       params.require(:share).permit(:link_id, :shortened_url, :utm_source, :utm_medium, :utm_campaign, :utm_term, :utm_content, :utm_id, :shared_link_name)
+    end
+
+    def assign_shortened_url(share)
+      share.update(shortened_url: "https://#{share.shorten}")
+    rescue StandardError => e
+      Rails.logger.warn("Share ##{share.id} shorten failed: #{e.class}: #{e.message}")
     end
 
     def share_json(share)
