@@ -131,15 +131,80 @@ RSpec.describe 'JSON API for links and shares', type: :request do
     end
   end
 
-  describe 'Bearer cannot reach write endpoints' do
-    it 'cannot POST a share' do
-      expect {
-        post "/links/#{fastruby_link.id}/shares.json",
-          params: { share: { utm_source: 'evil', utm_medium: 'evil', utm_campaign: 'evil' } },
-          headers: auth_headers
-      }.not_to change(Share, :count)
+  describe 'POST /links/:link_id/shares.json' do
+    before do
+      allow_any_instance_of(Share).to receive(:shorten).and_return('short.link/abc')
     end
 
+    let(:valid_params) do
+      {
+        share: {
+          utm_source: 'LinkedIn',
+          utm_medium: 'community',
+          utm_campaign: 'campaignOne',
+          utm_term: 'termOne',
+          utm_content: 'Photo'
+        }
+      }
+    end
+
+    it 'creates a share for a valid token' do
+      expect {
+        post "/links/#{fastruby_link.id}/shares.json", params: valid_params, headers: auth_headers
+      }.to change(Share, :count).by(1)
+
+      expect(response).to have_http_status(:created)
+      body = JSON.parse(response.body)
+      expect(body['utm_source']).to eq('LinkedIn')
+      expect(body['link_id']).to eq(fastruby_link.id)
+      expect(body['shortened_url']).to eq('https://short.link/abc')
+    end
+
+    it 'returns 422 with errors when params are invalid' do
+      expect {
+        post "/links/#{fastruby_link.id}/shares.json",
+          params: { share: { utm_source: '' } },
+          headers: auth_headers
+      }.not_to change(Share, :count)
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      body = JSON.parse(response.body)
+      expect(body['errors']).to be_an(Array).and(be_present)
+    end
+
+    it 'returns 401 without a token' do
+      expect {
+        post "/links/#{fastruby_link.id}/shares.json",
+          params: valid_params,
+          headers: { 'Accept' => 'application/json' }
+      }.not_to change(Share, :count)
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'returns 401 with an invalid token' do
+      headers = { 'Authorization' => 'Bearer wrong', 'Accept' => 'application/json' }
+      expect {
+        post "/links/#{fastruby_link.id}/shares.json", params: valid_params, headers: headers
+      }.not_to change(Share, :count)
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'persists the share even if shortening fails' do
+      allow_any_instance_of(Share).to receive(:shorten).and_raise(StandardError, 'rebrandly down')
+
+      expect {
+        post "/links/#{fastruby_link.id}/shares.json", params: valid_params, headers: auth_headers
+      }.to change(Share, :count).by(1)
+
+      expect(response).to have_http_status(:created)
+      body = JSON.parse(response.body)
+      expect(body['shortened_url']).to be_nil
+    end
+  end
+
+  describe 'Bearer cannot reach write endpoints' do
     it 'cannot create a personal access token' do
       auth_headers # materialize the lazy `token` let so it doesn't pollute the count check
       expect {
