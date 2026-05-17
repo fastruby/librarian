@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :share do
     utm_source { 'LinkedIn' }
-    utm_medium { 'community' }
-    utm_campaign { 'campaignOne' }
+    utm_medium { 'Organic' }
+    utm_campaign { 'Blogpromo' }
     utm_term { 'termOne' }
-    utm_content { 'campaignContent' }
+    utm_content { 'Photo' }
     link
   end
 end

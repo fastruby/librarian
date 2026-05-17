@@ -73,8 +73,8 @@ RSpec.describe 'JSON API for links and shares', type: :request do
       fastruby_link.social_media_snippets.create!(content: 'Tweet 1', social_media_type: 'Twitter')
       fastruby_link.social_media_snippets.create!(content: 'LI 1',    social_media_type: 'LinkedIn')
       fastruby_link.shares.create!(
-        utm_source: 'LinkedIn', utm_medium: 'community',
-        utm_campaign: 'campaignOne', utm_term: 'termOne'
+        utm_source: 'LinkedIn', utm_medium: 'Organic',
+        utm_campaign: 'Blogpromo', utm_term: 'termOne'
       )
     end
 
@@ -104,8 +104,8 @@ RSpec.describe 'JSON API for links and shares', type: :request do
   describe 'GET /links/:link_id/shares.json' do
     let!(:share) do
       fastruby_link.shares.create!(
-        utm_source: 'LinkedIn', utm_medium: 'community',
-        utm_campaign: 'campaignOne', utm_term: 'termOne'
+        utm_source: 'LinkedIn', utm_medium: 'Organic',
+        utm_campaign: 'Blogpromo', utm_term: 'termOne'
       )
     end
 
@@ -140,8 +140,8 @@ RSpec.describe 'JSON API for links and shares', type: :request do
       {
         share: {
           utm_source: 'LinkedIn',
-          utm_medium: 'community',
-          utm_campaign: 'campaignOne',
+          utm_medium: 'Organic',
+          utm_campaign: 'Blogpromo',
           utm_term: 'termOne',
           utm_content: 'Photo'
         }

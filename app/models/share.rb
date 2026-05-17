@@ -3,6 +3,7 @@ class Share < ApplicationRecord
 
   UTM_SOURCES = %w[
     Bing
+    Bluesky
     ConvertKit
     Facebook
     Google
@@ -42,6 +43,10 @@ class Share < ApplicationRecord
   ].sort!
 
   validates :utm_source, :utm_campaign, :utm_medium, :utm_term, presence: true
+  validates :utm_source,   inclusion: { in: UTM_SOURCES,  allow_blank: true }, on: :create
+  validates :utm_medium,   inclusion: { in: UTM_MEDIUMS,  allow_blank: true }, on: :create
+  validates :utm_campaign, inclusion: { in: UTM_CAMPAIGN, allow_blank: true }, on: :create
+  validates :utm_content,  inclusion: { in: UTM_CONTENT,  allow_blank: true }, on: :create
 
   def calculated_url
     uri = URI(link.url)
