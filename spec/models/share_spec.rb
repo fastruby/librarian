@@ -32,6 +32,14 @@ RSpec.describe Share do
       end
     end
 
+    context "on create with HubSpot as utm_source" do
+      it "is valid" do
+        share = build(:share, utm_source: "HubSpot")
+
+        expect(share.valid?(:create)).to be_truthy
+      end
+    end
+
     context "on create with an unrecognized utm_medium" do
       it "is not valid" do
         share = build(:share, utm_medium: "community")
@@ -41,12 +49,84 @@ RSpec.describe Share do
       end
     end
 
+    context "on create with PaidSocial as utm_medium" do
+      it "is valid" do
+        share = build(:share, utm_medium: "PaidSocial")
+
+        expect(share.valid?(:create)).to be_truthy
+      end
+    end
+
+    context "on create with CPC as utm_medium" do
+      it "is valid" do
+        share = build(:share, utm_medium: "CPC")
+
+        expect(share.valid?(:create)).to be_truthy
+      end
+    end
+
+    context "on create with Email as utm_medium" do
+      it "is valid" do
+        share = build(:share, utm_medium: "Email")
+
+        expect(share.valid?(:create)).to be_truthy
+      end
+    end
+
+    context "on create with Newsletter as utm_medium" do
+      it "is valid" do
+        share = build(:share, utm_medium: "Newsletter")
+
+        expect(share.valid?(:create)).to be_truthy
+      end
+    end
+
     context "on create with an unrecognized utm_campaign" do
       it "is not valid" do
         share = build(:share, utm_campaign: "campaignOne")
 
         expect(share.valid?(:create)).to be_falsey
         expect(share.errors[:utm_campaign]).to include("is not included in the list")
+      end
+    end
+
+    context "on create with LinkedIn-TLA as utm_campaign" do
+      it "is valid" do
+        share = build(:share, utm_campaign: "LinkedIn-TLA")
+
+        expect(share.valid?(:create)).to be_truthy
+      end
+    end
+
+    context "on create with LinkedIn-Roadmap-Test as utm_campaign" do
+      it "is valid" do
+        share = build(:share, utm_campaign: "LinkedIn-Roadmap-Test")
+
+        expect(share.valid?(:create)).to be_truthy
+      end
+    end
+
+    context "on create with Rails-Upgrade-Guide as utm_campaign" do
+      it "is valid" do
+        share = build(:share, utm_campaign: "Rails-Upgrade-Guide")
+
+        expect(share.valid?(:create)).to be_truthy
+      end
+    end
+
+    context "on create with Newsletter as utm_campaign" do
+      it "is valid" do
+        share = build(:share, utm_campaign: "Newsletter")
+
+        expect(share.valid?(:create)).to be_truthy
+      end
+    end
+
+    context "on create with Re-engagement as utm_campaign" do
+      it "is valid" do
+        share = build(:share, utm_campaign: "Re-engagement")
+
+        expect(share.valid?(:create)).to be_truthy
       end
     end
 
