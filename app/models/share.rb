@@ -7,6 +7,7 @@ class Share < ApplicationRecord
     ConvertKit
     Facebook
     Google
+    HubSpot
     LinkedIn
     Lobsters
     Mastodon
@@ -19,17 +20,26 @@ class Share < ApplicationRecord
   ].sort!
 
   UTM_MEDIUMS = %w[
+    CPC
+    Email
+    Newsletter
     Organic
     PaidPlacement
+    PaidSocial
     PPC
   ].sort!
 
   UTM_CAMPAIGN = %w[
+    Blogpromo
+    LinkedIn-Roadmap-Test
+    LinkedIn-TLA
+    Newsletter
+    Rails-Upgrade-Guide
+    Re-engagement
     Recruitment
     Upgraderuby
     Upgradejs
     Upgradenodejs
-    Blogpromo
   ].sort!
 
   UTM_CONTENT = %w[
