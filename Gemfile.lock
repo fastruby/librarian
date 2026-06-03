@@ -366,8 +366,6 @@ GEM
       rubocop (>= 1.33.0, < 2.0)
     rubocop-rspec (2.13.2)
       rubocop (~> 1.33)
-    ruby-openai (3.6.0)
-      httparty (>= 0.18.1)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     rubyntlm (0.6.3)
@@ -462,7 +460,6 @@ DEPENDENCIES
   rspec-rails
   rubocop-rails
   rubocop-rspec
-  ruby-openai
   selenium-webdriver
   simplecov
   sitemap-parser!
