@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'JSON API for links and shares', type: :request do
-  before do
-    allow_any_instance_of(Link).to receive(:fetch_social_media_snippets).and_return([])
-  end
-
   let(:user) { FactoryBot.create(:user) }
   let(:token) { FactoryBot.create(:personal_access_token, user: user) }
   let(:auth_headers) { { 'Authorization' => "Bearer #{token.token}", 'Accept' => 'application/json' } }
