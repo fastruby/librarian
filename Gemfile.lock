@@ -211,8 +211,10 @@ GEM
       net-protocol
     next_rails (1.2.1)
       colorize (>= 0.8.1)
-    nio4r (2.5.8)
+    nio4r (2.5.9)
     nokogiri (1.13.9-aarch64-linux)
+      racc (~> 1.4)
+    nokogiri (1.13.9-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.13.9-x86_64-darwin)
       racc (~> 1.4)
@@ -392,6 +394,8 @@ GEM
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.16-aarch64-linux)
       railties (>= 6.0.0)
+    tailwindcss-rails (2.0.16-arm64-darwin)
+      railties (>= 6.0.0)
     tailwindcss-rails (2.0.16-x86_64-darwin)
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.16-x86_64-linux)
@@ -430,6 +434,7 @@ GEM
 
 PLATFORMS
   aarch64-linux
+  arm64-darwin-25
   x86_64-darwin-20
   x86_64-darwin-21
   x86_64-darwin-22
@@ -471,7 +476,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.1.1p18
+   ruby 3.1.7p261
 
 BUNDLED WITH
    2.3.23
