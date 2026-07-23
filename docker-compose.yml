@@ -1,14 +1,13 @@
-version: "3.9"
 services:
   db:
-    image: postgres:10.9
+    image: postgres:17
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: postgres
     volumes:
       - db_data:/var/lib/postgresql/data
 
-  web: &web
+  web:
     build:
       context: .
       args:
@@ -20,7 +19,7 @@ services:
     volumes:
       - .:/app
       - ./config/database.yml.sample:/app/config/database.yml
-    environment: &envs
+    environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: postgres
       POSTGRES_HOST: db
