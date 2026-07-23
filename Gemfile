@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.1"
+ruby "3.1.7"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
@@ -84,6 +84,5 @@ group :development, :test do
   gem "overcommit", "0.57.0"
   gem "next_rails"
 end
-gem "dotenv-rails"
 gem "dotenv_validator"
 gem "pagy"
