@@ -37,7 +37,7 @@ jobs:
         env:
           RAILS_ENV: test
         run: |
-          gem install bundler:2.2.29
+          gem install bundler:2.3.23
           bundle install --jobs 4 --retry 3
           yarn install
           rake db:setup
