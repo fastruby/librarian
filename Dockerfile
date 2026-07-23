@@ -3,8 +3,6 @@ ARG RUBY_VERSION=3.1.7
 
 FROM ruby:$RUBY_VERSION-slim-$DISTRO_NAME
 
-ARG DISTRO_NAME
-
 RUN apt-get update -qq \
   && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
     build-essential \
