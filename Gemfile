@@ -84,6 +84,5 @@ group :development, :test do
   gem "overcommit", "0.57.0"
   gem "next_rails"
 end
-gem "dotenv-rails"
 gem "dotenv_validator"
 gem "pagy"
