@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   # so a PAT cannot reach write endpoints via content negotiation.
   API_ENDPOINTS = {
     "links"  => %w[index show],
-    "shares" => %w[index create]
+    "shares" => %w[index create],
+    "social_media_snippets" => %w[index create]
   }.freeze
 
   skip_forgery_protection if: :api_endpoint?
