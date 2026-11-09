@@ -19,7 +19,7 @@ RSpec.describe 'JSON API for social media snippets', type: :request do
       expect(response).to have_http_status(:ok)
       body = JSON.parse(response.body)
       expect(body.map { |s| s['content'] }).to eq(['On LinkedIn', 'On Mastodon'])
-      expect(body.first.keys).to match_array(%w[id link_id social_media_type content share_id created_at])
+      expect(body.first.keys).to match_array(%w[id link_id social_media_type content created_at])
     end
 
     it 'filters by social_media_type' do
@@ -73,7 +73,6 @@ RSpec.describe 'JSON API for social media snippets', type: :request do
       expect(body['link_id']).to eq(link.id)
       expect(body['social_media_type']).to eq('LinkedIn')
       expect(body['content']).to eq('A fresh take on the post.')
-      expect(body['share_id']).to be_nil
       expect(body['id']).to be_present
       expect(body['created_at']).to be_present
     end
@@ -91,38 +90,6 @@ RSpec.describe 'JSON API for social media snippets', type: :request do
       get "/links/#{link.id}.json", headers: auth_headers
       contents = JSON.parse(response.body)['social_media_snippets'].map { |s| s['content'] }
       expect(contents).to eq(['A fresh take on the post.'])
-    end
-
-    context 'with a share_id' do
-      let!(:share) { FactoryBot.create(:share, link: link) }
-
-      it 'ties the snippet to the share' do
-        post_snippet({ social_media_snippet: valid_params[:social_media_snippet].merge(share_id: share.id) })
-
-        expect(response).to have_http_status(:created)
-        expect(JSON.parse(response.body)['share_id']).to eq(share.id)
-        expect(SocialMediaSnippet.last.share).to eq(share)
-      end
-
-      it 'returns 422 when the share belongs to another link' do
-        other_share = FactoryBot.create(:share, link: other_link)
-
-        expect {
-          post_snippet({ social_media_snippet: valid_params[:social_media_snippet].merge(share_id: other_share.id) })
-        }.not_to change(SocialMediaSnippet, :count)
-
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(JSON.parse(response.body)['errors']).to include('Share must belong to the same link')
-      end
-
-      it 'returns 422, not a server error, when the share does not exist' do
-        expect {
-          post_snippet({ social_media_snippet: valid_params[:social_media_snippet].merge(share_id: 0) })
-        }.not_to change(SocialMediaSnippet, :count)
-
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(JSON.parse(response.body)['errors']).to include('Share must exist')
-      end
     end
 
     it 'returns 422 when content is missing' do

@@ -34,7 +34,7 @@ class SocialMediaSnippetsController < ApplicationController
     end
 
     def snippet_params
-      params.require(:social_media_snippet).permit(:social_media_type, :content, :share_id)
+      params.require(:social_media_snippet).permit(:social_media_type, :content)
     end
 
     def snippet_json(snippet)
@@ -43,7 +43,6 @@ class SocialMediaSnippetsController < ApplicationController
         link_id: snippet.link_id,
         social_media_type: snippet.social_media_type,
         content: snippet.content,
-        share_id: snippet.share_id,
         created_at: snippet.created_at
       }
     end

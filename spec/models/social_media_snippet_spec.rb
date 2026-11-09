@@ -61,36 +61,5 @@ RSpec.describe SocialMediaSnippet do
         expect(SocialMediaSnippet.new(link: other, social_media_type: "LinkedIn", content: "Same copy")).to be_valid
       end
     end
-
-    context "share" do
-      let(:link) { FactoryBot.create(:link) }
-
-      it "is optional" do
-        expect(SocialMediaSnippet.new(link: link, social_media_type: "LinkedIn", content: "Copy")).to be_valid
-      end
-
-      it "must belong to the same link" do
-        other_share = FactoryBot.create(:share, link: FactoryBot.create(:link, url: "https://www.fastruby.io/blog/other.html"))
-        snippet = SocialMediaSnippet.new(link: link, social_media_type: "LinkedIn", content: "Copy", share: other_share)
-
-        expect(snippet).not_to be_valid
-        expect(snippet.errors[:share]).to eq ["must belong to the same link"]
-      end
-
-      it "must exist when a share_id is given" do
-        snippet = SocialMediaSnippet.new(link: link, social_media_type: "LinkedIn", content: "Copy", share_id: 0)
-
-        expect(snippet).not_to be_valid
-        expect(snippet.errors[:share]).to eq ["must exist"]
-      end
-
-      it "is nullified, not blocked, when the share is destroyed" do
-        share = FactoryBot.create(:share, link: link)
-        snippet = FactoryBot.create(:social_media_snippet, link: link, share: share)
-
-        expect { share.destroy }.to change(Share, :count).by(-1)
-        expect(snippet.reload.share_id).to be_nil
-      end
-    end
   end
 end
