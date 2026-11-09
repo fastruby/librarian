@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root to: "links#index"
   resources :links, only: [:index, :show] do
     resources :shares
+    resources :social_media_snippets, only: [:index, :create]
     get '/shares/:id/clone', to: 'shares#clone', as: "clone"
   end
   post 'execute_read_task', to: 'application#execute_read_task'

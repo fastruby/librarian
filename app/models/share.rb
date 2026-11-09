@@ -1,5 +1,6 @@
 class Share < ApplicationRecord
   belongs_to :link
+  has_many :social_media_snippets, dependent: :nullify
 
   UTM_SOURCES = %w[
     Bing
