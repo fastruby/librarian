@@ -3,8 +3,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.3.14"
 
+def next?
+  File.basename(__FILE__) == "Gemfile.next"
+end
+
+gem "next_rails"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.4"
+gem "rails", "~> 8.1.0"
 
 # Application Dependencies
 gem "dotenv-rails"
@@ -82,7 +88,6 @@ group :development, :test do
   gem "rubocop-rails"
   gem "reek"
   gem "overcommit", "0.57.0"
-  gem "next_rails"
 end
 gem "dotenv_validator"
 gem "pagy"
