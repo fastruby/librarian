@@ -11,9 +11,9 @@ gem "next_rails"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 if next?
-  gem "rails", "~> 7.2.0"
+  gem "rails", "~> 8.0.0"
 else
-  gem "rails", "~> 7.1.0"
+  gem "rails", "~> 7.2.0"
 end
 
 # Application Dependencies
