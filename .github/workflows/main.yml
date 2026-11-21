@@ -28,7 +28,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1.7"
+          ruby-version: "3.3.14"
 
       - name: Install PostgreSQL 11 client
         run: |
@@ -40,7 +40,7 @@ jobs:
           gem install bundler:2.3.23
           bundle install --jobs 4 --retry 3
           yarn install
-          rake db:setup
+          bundle exec rake db:setup
       - name: Run tests
         run: |
           bundle exec rspec spec
