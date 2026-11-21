@@ -30,6 +30,11 @@ jobs:
         with:
           ruby-version: "3.3.14"
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+
       - name: Install PostgreSQL 11 client
         run: |
           sudo apt-get -yqq install libpq-dev
