@@ -21,7 +21,7 @@ class SocialMediaSnippetsController < ApplicationController
         if @snippet.save
           render json: snippet_json(@snippet), status: :created
         else
-          render json: { errors: @snippet.errors.full_messages }, status: :unprocessable_entity
+          render json: { errors: @snippet.errors.full_messages }, status: :unprocessable_content
         end
       end
     end

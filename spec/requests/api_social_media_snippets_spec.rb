@@ -97,7 +97,7 @@ RSpec.describe 'JSON API for social media snippets', type: :request do
         post_snippet({ social_media_snippet: { social_media_type: 'LinkedIn', content: '' } })
       }.not_to change(SocialMediaSnippet, :count)
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
       expect(JSON.parse(response.body)['errors']).to include("Content can't be blank")
     end
 
@@ -106,14 +106,14 @@ RSpec.describe 'JSON API for social media snippets', type: :request do
         post_snippet({ social_media_snippet: { social_media_type: 'Myspace', content: 'Hello' } })
       }.not_to change(SocialMediaSnippet, :count)
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
       expect(JSON.parse(response.body)['errors']).to include('Social media type is not included in the list')
     end
 
     it 'returns 422 when the social media type is missing' do
       post_snippet({ social_media_snippet: { content: 'Hello' } })
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
       expect(JSON.parse(response.body)['errors']).to include("Social media type can't be blank")
     end
 
@@ -122,7 +122,7 @@ RSpec.describe 'JSON API for social media snippets', type: :request do
 
       expect { post_snippet(valid_params) }.not_to change(SocialMediaSnippet, :count)
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
       expect(JSON.parse(response.body)['errors'].first).to match(/has already been saved/)
     end
 
