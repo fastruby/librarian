@@ -163,7 +163,7 @@ RSpec.describe 'JSON API for links and shares', type: :request do
           headers: auth_headers
       }.not_to change(Share, :count)
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
       body = JSON.parse(response.body)
       expect(body['errors']).to be_an(Array).and(be_present)
     end

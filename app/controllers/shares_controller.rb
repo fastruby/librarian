@@ -37,8 +37,8 @@ class SharesController < ApplicationController
         format.html { redirect_to @link, notice: "Share was successfully created." }
         format.json { render json: share_json(@share), status: :created }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: { errors: @share.errors.full_messages }, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: { errors: @share.errors.full_messages }, status: :unprocessable_content }
       end
     end
   end

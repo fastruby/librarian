@@ -14,7 +14,7 @@ class PersonalAccessTokensController < ApplicationController
       render :index, status: :created
     else
       @personal_access_tokens = current_user.personal_access_tokens.order(created_at: :desc)
-      render :index, status: :unprocessable_entity
+      render :index, status: :unprocessable_content
     end
   end
 
