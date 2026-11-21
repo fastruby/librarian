@@ -10,8 +10,15 @@ on:
     - main
 
 jobs:
-  test-rails-current:
+  test:
+    name: Test (${{ matrix.gemfile }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        gemfile: [Gemfile, Gemfile.next]
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
     services:
       postgres:
         image: postgres:11.6-alpine
@@ -42,7 +49,7 @@ jobs:
         env:
           RAILS_ENV: test
         run: |
-          gem install bundler:2.3.23
+          gem install bundler:2.5.22
           bundle install --jobs 4 --retry 3
           yarn install
           bundle exec rake db:setup
