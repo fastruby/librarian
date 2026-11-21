@@ -22,7 +22,7 @@ gem "tailwindcss-rails"
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 7.0", ">= 7.0.3"
+gem "puma", "~> 8.1"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
