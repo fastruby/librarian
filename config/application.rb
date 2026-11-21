@@ -23,8 +23,11 @@ module Librarian
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    # Rails 8.0 deprecates `true`; `:zone` keeps the 7.0 default's intent
-    config.active_support.to_time_preserves_timezone = :zone
+    # Rails 8.0 deprecates `true`; `:zone` keeps the 7.0 default's intent.
+    # Rails 8.1 deprecates the setting itself.
+    unless NextRails.next?
+      config.active_support.to_time_preserves_timezone = :zone
+    end
 
     # Configuration for the application, engines, and railties goes here.
     #
