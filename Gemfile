@@ -10,11 +10,7 @@ end
 gem "next_rails"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-if next?
-  gem "rails", "~> 8.1.0"
-else
-  gem "rails", "~> 8.0.0"
-end
+gem "rails", "~> 8.1.0"
 
 # Application Dependencies
 gem "dotenv-rails"
