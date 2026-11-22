@@ -15,8 +15,7 @@ gem "rails", "~> 8.1.0"
 # Application Dependencies
 gem "dotenv-rails"
 gem "mechanize"
-gem "sitemap-parser", github: "fastruby/sitemap-parser",
-                      branch: "fixes/recurse-to-level-n"
+gem "sitemap-parser"
 gem "ombu_labs-shortener"
 gem "ombu_labs-auth"
 
