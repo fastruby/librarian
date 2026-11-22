@@ -11,7 +11,7 @@ services:
     build:
       context: .
       args:
-        RUBY_VERSION: '3.3.14'
+        RUBY_VERSION: '4.0.10'
         PG_MAJOR: '14'
         NODE_MAJOR: '16'
         YARN_VERSION: '1.22.17'
