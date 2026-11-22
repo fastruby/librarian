@@ -13,6 +13,8 @@ jobs:
   test:
     name: Test (${{ matrix.gemfile }})
     runs-on: ubuntu-latest
+    # Rails main moves daily, so a red Gemfile.next job is a heads up, not a blocker
+    continue-on-error: ${{ matrix.gemfile == 'Gemfile.next' }}
     strategy:
       fail-fast: false
       matrix:
