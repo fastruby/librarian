@@ -1,13 +1,20 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.14"
+ruby "4.0.10"
 
 def next?
   File.basename(__FILE__) == "Gemfile.next"
 end
 
 gem "next_rails"
+
+# Removed from default gems in Ruby 3.4+/4.0
+gem "csv"
+gem "mutex_m"
+gem "nkf"
+gem "observer"
+gem "ostruct"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 if next?
@@ -25,7 +32,7 @@ gem "ombu_labs-auth"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
-gem "tailwindcss-rails"
+gem "tailwindcss-rails", "~> 3.3"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
