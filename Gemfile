@@ -11,9 +11,9 @@ gem "next_rails"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 if next?
-  gem "rails", "~> 8.1.0"
+  gem "rails", github: "rails/rails", branch: "main"
 else
-  gem "rails", "~> 8.0.0"
+  gem "rails", "~> 8.1.0"
 end
 
 # Application Dependencies
@@ -79,7 +79,11 @@ group :test do
   gem "capybara", ">= 2.15"
   gem "selenium-webdriver"
   gem "webdrivers"
-  gem "rspec-rails"
+  if next?
+    gem "rspec-rails", github: "rspec/rspec-rails", branch: "main"
+  else
+    gem "rspec-rails"
+  end
 end
 
 group :development, :test do
